@@ -1,0 +1,33 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: consumer
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123123
+    url: mysql://localhost:3306/activiti
+
+dubbo:
+  scan:
+    base-packages: com.yyzc.hy.controller
+  protocol:
+    name: consumer
+    port: 20880
+    dispatcher: all
+    threadpool: fixed
+    threads: 1000
+  registry:
+    address: 192.168.137.2:2181,192.168.137.3:2181,192.168.137.4:2181
+    protocol: zookeeper
+    check: false  # 注册中心不检查
+  application:
+    name: consumer
+  consumer:
+    cluster: failover
+    check: false # 启动不检查
+    timeout: 3000 # 超时时间，单位毫秒
+    retries: 3 # 重试次数
+    group: test
+
